@@ -25,6 +25,6 @@ def home(_request):
 urlpatterns = [
     path("", home, name="home"),      # <- root path
     path("admin/", admin.site.urls),  
-    path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon.html"),
+    path("comingsoon/", lambda r: HttpResponse("coming soon works"), name="comingsoon"),
 ]
 
