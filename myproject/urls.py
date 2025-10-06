@@ -17,12 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path
+from django.views.generic import TemplateView
 
 def home(_request):
     return HttpResponse("RUFinder is live ✅")
 
 urlpatterns = [
     path("", home, name="home"),      # <- root path
-    path("admin/", admin.site.urls),  # optional
+    path("admin/", admin.site.urls),  
+    path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon.html"),
 ]
 
