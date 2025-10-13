@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.http import HttpResponse
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
 
 def home(_request):
@@ -26,5 +26,6 @@ urlpatterns = [
     path("", home, name="home"),      # <- root path
     path("admin/", admin.site.urls),  
     path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon.html"),
+    path('api/', include('posts.urls')),
 ]
 
