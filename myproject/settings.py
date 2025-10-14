@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     
     #local apps
     'posts',
+    'users',
 
     #third-party apps
     'rest_framework',
     'corsheaders',
 ]
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
