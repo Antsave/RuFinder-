@@ -27,3 +27,6 @@ db.sqlite3
 .vscode/
 .idea/
 *.swp
+
+
+!static/style.css
