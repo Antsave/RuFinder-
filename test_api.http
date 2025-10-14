@@ -1,0 +1,15 @@
+### GET request to example server
+GET http://127.0.0.1:8000/api/posts/
+Accept: application/json
+
+### Create a new post
+POST http://127.0.0.1:8000/api/posts/
+Content-Type: application/json
+
+{
+  "title": "Lost Keys",
+  "description": "Silver keychain with a blue tag.",
+  "category": "L",
+  "location": "Main Library",
+  "owner": 1
+}
