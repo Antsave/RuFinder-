@@ -2,23 +2,23 @@ services:
   django:
     image: python:3.12-slim
     container_name: django-app
+    working_dir: /app
+    volumes:
+      - .:/app
+      - django-static:/app/static
+      - django-media:/app/media
+      - pip-cache:/root/.cache/pip
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app                           # Your source code & SQLite database
-      - django-static:/app/static        # Static files
-      - django-media:/app/media          # Media uploads
-      - pip-cache:/root/.cache/pip       # Pip cache for faster rebuilds
-    working_dir: /app
     environment:
       - PYTHONUNBUFFERED=1
     command: >
-      bash -c "
-        pip install --upgrade pip &&
-        pip install Django &&
-        if [ ! -f manage.py ]; then
-          echo 'Creating new Django project...'
-          django-admin startproject myproject .
+      bash -lc "
+        python -m pip install --upgrade pip &&
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        else
+          pip install Django djangorestframework django-cors-headers gunicorn psycopg2-binary redis celery python-dotenv Pillow
         fi &&
         python manage.py migrate &&
         python manage.py runserver 0.0.0.0:8000
