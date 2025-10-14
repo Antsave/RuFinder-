@@ -5,10 +5,8 @@ from .serializers import UserSerializer
 User = get_user_model()
 
 class MeView(generics.RetrieveUpdateAPIView):
-    queryset = User.objects.all().order_by("id")
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-    
 
     def get_object(self):
         return self.request.user
