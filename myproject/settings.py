@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     
     #local apps
     'posts',
+    'comments',
+    'users_api',
 
     #third-party apps
     'rest_framework',

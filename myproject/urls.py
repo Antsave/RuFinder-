@@ -27,5 +27,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),  
     path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon.html"),
     path('api/', include('posts.urls')),
+
+    # API routes
+    path("api/", include("comments.urls")), # new comments app
+    path("api/", include("users_api.urls")),    # new user system (register/login)
 ]
 
