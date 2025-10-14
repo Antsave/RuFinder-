@@ -57,9 +57,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'https://rufinder.savagedomain.net',
-]
+CORS_ALLOWED_ORIGINS = True #[
+    #'https://rufinder.savagedomain.net',
+#]
 
 ROOT_URLCONF = 'myproject.urls'
 
