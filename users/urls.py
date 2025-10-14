@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import MeView
+from .views import UserListCreateView, MeView  # ensure these exist
 
 urlpatterns = [
-    path("me/", MeView.as_view(), name="users-me"),
+    path("", MeView.as_view(), name="users-root-redirect"),   # optional; change if you prefer list here
+    path("me/", MeView.as_view(), name="users-me"),           # /api/users/me/
 ]
