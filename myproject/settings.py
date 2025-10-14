@@ -58,7 +58,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'https://rufinder.savagedomain.net',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
