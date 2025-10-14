@@ -26,7 +26,6 @@ urlpatterns = [
     path("", home, name="home"),      # <- root path
     path("admin/", admin.site.urls),  
     path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon.html"),
-    path("api/users/", include("users.urls")),
     path('api/', include('posts.urls')),
 ]
 
