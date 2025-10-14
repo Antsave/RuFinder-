@@ -14,7 +14,7 @@ body {
 
 /* Header */
 header {
-  background: #004aad;
+  background: #df2302;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -59,7 +59,7 @@ main {
 
 .post-form h2 {
   margin-bottom: 1rem;
-  color: #004aad;
+  color: #df2302;
 }
 
 .post-form form {
@@ -78,7 +78,7 @@ main {
 }
 
 .post-form button {
-  background: #004aad;
+  background: #df2302;
   color: white;
   border: none;
   padding: 0.8rem;
@@ -88,13 +88,13 @@ main {
 }
 
 .post-form button:hover {
-  background: #00357a;
+  background: #df2302;
 }
 
 /* Feed */
 .feed h2 {
   margin-bottom: 1rem;
-  color: #004aad;
+  color: #df2302;
 }
 
 .card-grid {
@@ -159,8 +159,10 @@ main {
 footer {
   text-align: center;
   padding: 1.5rem;
-  background: #004aad;
+  background: #df2302;
   color: white;
   margin-top: 3rem;
   border-top-left-radius: 10px;
-  border-top-right-radius: 10px
+  border-top-right-radius: 10px; 
+}
+
