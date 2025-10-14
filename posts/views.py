@@ -1,10 +1,12 @@
-from django.shortcuts import render
-from rest_framework import viewsets, permissions
-from .models import Post
-from .serializers import PostSerializer
+from rest_framework import generics, permissions
+from django.contrib.auth import get_user_model
+from .serializers import UserSerializer
 
-# Create your views here.
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all().order_by('-created_at')
-    serializer_class = PostSerializer
-    permission_classes = [permissions.AllowAny]
+User = get_user_model()
+
+class MeView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
