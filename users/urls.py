@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import MeView, UserListCreateView
+from .views import MeView
 
 urlpatterns = [
-    path("", UserListCreateView.as_view(), name="users-list-create"),  # enables /api/users/
     path("me/", MeView.as_view(), name="users-me"),
 ]
