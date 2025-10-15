@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
 from django.views.generic import TemplateView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 
 def home(_request):
     return HttpResponse("RUFinder is live ✅")
