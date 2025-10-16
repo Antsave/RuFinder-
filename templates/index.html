@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RU Finder - Lost & Found Forum</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">RU Finder</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Lost Items</a>
+      <a href="#">Found Items</a>
+      <a href="#">Post</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="post-form">
+      <h2>Post a Lost or Found Item</h2>
+      <form>
+        <select>
+          <option>Lost</option>
+          <option>Found</option>
+        </select>
+        <input type="text" placeholder="Item title" required>
+        <textarea placeholder="Describe the item..." required></textarea>
+        <input type="text" placeholder="Location" required>
+        <input type="email" placeholder="Your contact email" required>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+
+    <section class="feed">
+      <h2>Recent Posts</h2>
+      <div class="card-grid">
+        <div class="card">
+          <img src="https://via.placeholder.com/300x200" alt="Lost item">
+          <div class="card-content">
+            <h3>Lost Wallet</h3>
+            <p>Black leather wallet lost near library. Contains ID and student card.</p>
+            <span class="tag lost">Lost</span>
+            <p class="contact">Contact: user@email.com</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://via.placeholder.com/300x200" alt="Found item">
+          <div class="card-content">
+            <h3>Found Keys</h3>
+            <p>Found near cafeteria on Monday morning.</p>
+            <span class="tag found">Found</span>
+            <p class="contact">Contact: finder@email.com</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 RU Finder. All rights reserved.</p>
+  </footer>
+</body>
+</html
