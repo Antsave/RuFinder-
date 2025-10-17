@@ -2,14 +2,50 @@
 GET http://127.0.0.1:8000/api/posts/
 Accept: application/json
 
-### Create a new post
-POST http://127.0.0.1:8000/api/posts/
+### Register
+POST http://127.0.0.1:8000/api/users/register/
 Content-Type: application/json
 
 {
-  "title": "Lost Keys",
-  "description": "Silver keychain with a blue tag.",
+  "username": "testuser",
+  "password": "testpassword123",
+  "display_name": "Test User"
+}
+
+### Login to get JWT tokens
+POST http://127.0.0.1:8000/api/users/token/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword123"
+}
+
+> {%
+    client.global.set("access", response.body.access);
+    client.global.set("refresh", response.body.refresh);
+ %}
+
+### Create a new post
+POST http://127.0.0.1:8000/api/posts/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "title": "Lost Wallet",
+  "description": "Brown Leather Wallet",
   "category": "L",
-  "location": "Main Library",
-  "owner": 1
+  "location": "Campus Center"
+}
+
+> {% client.global.set("post_id", response.body.id) %}
+
+### Add comment to post
+POST http://127.0.0.1:8000/api/comments/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "post": {{post_id}},
+  "body": "This is a test comment!"
 }
