@@ -63,6 +63,9 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True #[
     #'https://rufinder.savagedomain.net',
 #]
+CSRF_TRUSTED_ORIGINS = [
+    "https://rufinder.savagedomain.net",
+]
 
 ROOT_URLCONF = 'myproject.urls'
 
