@@ -3,7 +3,7 @@ GET http://rufinder.savagedomain.net/api/posts/
 Accept: application/json
 
 ### Register
-POST http://rufinder.savagedomain.net/api/users/register/
+POST https://rufinder.savagedomain.net/api/users/register/
 Content-Type: application/json
 
 {
