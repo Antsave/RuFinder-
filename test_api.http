@@ -7,7 +7,7 @@ POST http://rufinder.savagedomain.net/api/users/register/
 Content-Type: application/json
 
 {
-  "username": "testuser",
+  "username": "testuser889",
   "email": "testuser@gmail.com",
   "password": "testpassword123",
   "first_name":"Test",
@@ -20,7 +20,7 @@ POST http://rufinder.savagedomain.net/api/users/token/
 Content-Type: application/json
 
 {
-  "username": "testuser",
+  "username": "testuser889",
   "password": "testpassword123"
 }
 
