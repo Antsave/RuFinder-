@@ -12,7 +12,7 @@ Content-Type: application/json
   "password": "testpassword123",
   "first_name":"Test",
   "last_name": "User",
-  "display_name": "Test User"
+  "display_name": "Test Userz"
 }
 
 ### Login to get JWT tokens
