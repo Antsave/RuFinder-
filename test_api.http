@@ -1,9 +1,9 @@
 ### GET request to example server
-GET http://127.0.0.1:8000/api/posts/
+GET http://rufinder.savagedomain.net/api/posts/
 Accept: application/json
 
 ### Register
-POST http://127.0.0.1:8000/api/users/register/
+POST http://rufinder.savagedomain.net/api/users/register/
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### Login to get JWT tokens
-POST http://127.0.0.1:8000/api/users/token/
+POST http://rufinder.savagedomain.net/api/users/token/
 Content-Type: application/json
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
  %}
 
 ### Create a new post
-POST http://127.0.0.1:8000/api/posts/
+POST http://rufinder.savagedomain.net/api/posts/
 Authorization: Bearer {{access}}
 Content-Type: application/json
 
@@ -41,7 +41,7 @@ Content-Type: application/json
 > {% client.global.set("post_id", response.body.id) %}
 
 ### Add comment to post
-POST http://127.0.0.1:8000/api/comments/
+POST http://rufinder.savagedomain.net/api/comments/
 Authorization: Bearer {{access}}
 Content-Type: application/json
 
