@@ -66,6 +66,8 @@ CORS_ALLOW_ALL_ORIGINS = True #[
 CSRF_TRUSTED_ORIGINS = [
     "https://rufinder.savagedomain.net",
 ]
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'myproject.urls'
 
