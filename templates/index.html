@@ -21,15 +21,33 @@
   <main>
     <section class="post-form">
       <h2>Post a Lost or Found Item</h2>
-      <form>
-        <select>
-          <option>Lost</option>
-          <option>Found</option>
+
+      <!-- Updated form for Django with CSRF and file uploads -->
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <select name="status" required>
+          <option value="Lost">Lost</option>
+          <option value="Found">Found</option>
         </select>
-        <input type="text" placeholder="Item title" required>
-        <textarea placeholder="Describe the item..." required></textarea>
-        <input type="text" placeholder="Location" required>
-        <input type="email" placeholder="Your contact email" required>
+
+        <input type="text" name="title" placeholder="Item title" required>
+
+        <select name="location" required>
+          <option value="" disabled selected>Select location</option>
+          <option value="BSB">BSB</option>
+          <option value="CC">CC</option>
+          <option value="ATG">ATG</option>
+          <option value="Nursing building">Nursing building</option>
+          <option value="Library">Library</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <textarea name="description" placeholder="Describe the item...If location is not listed, please describe where." required></textarea>
+
+        <input type="email" name="contact_email" placeholder="Your contact email" required>
+
+        <input type="file" name="image" accept="image/*" required>
+
         <button type="submit">Post</button>
       </form>
     </section>
@@ -37,6 +55,7 @@
     <section class="feed">
       <h2>Recent Posts</h2>
       <div class="card-grid">
+        <!-- Example Lost Item Card -->
         <div class="card">
           <img src="https://via.placeholder.com/300x200" alt="Lost item">
           <div class="card-content">
@@ -47,6 +66,7 @@
           </div>
         </div>
 
+        <!-- Example Found Item Card -->
         <div class="card">
           <img src="https://via.placeholder.com/300x200" alt="Found item">
           <div class="card-content">
@@ -64,4 +84,4 @@
     <p>© 2025 RU Finder. All rights reserved.</p>
   </footer>
 </body>
-</html
+</html>

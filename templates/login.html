@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Who R U? - Login | RU Finder</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <!--   
+  <link rel="stylesheet" href="style.css"> (For testing outside of the container)
+  -->
+</head>
+<body>
+  <div class="login-container">
+    <h1 class="brand">RU Finder</h1>
+
+    <!-- Logo replace logo.png later logo.png must be put in static folder -->
+    <img src="{% static 'logo.png' %}" alt="RU Finder Logo" class="logo">
+
+    <h2 class="login-title">Who <span class="highlight">R U?</span></h2>
+
+    <!-- error message-->
+    {% if form.errors %}
+      <p class="error">Invalid username or password.</p>
+    {% endif %}
+
+    <!--login form-->
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+      </div>
+      <button type="submit">Enter</button>
+    </form>
+
+    <p class="signup-text">
+      New here? <a href="{% url 'signup' %}">Join RU Finder</a>
+    </p>
+  </div>
+</body>
+</html>
