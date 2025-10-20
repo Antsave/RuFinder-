@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### Login to get JWT tokens
-POST http://rufinder.savagedomain.net/api/users/token/
+POST https://rufinder.savagedomain.net/api/users/token/
 Content-Type: application/json
 
 {
