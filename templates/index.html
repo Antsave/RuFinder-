@@ -1,44 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RU Finder - Lost & Found Forum</title>
-  {% load static %}
+  {% load static %}>
   <link rel="stylesheet" href="{% static 'style.css' %}">
+  <!--<link rel="stylesheet" href="style.css" />-->
 </head>
 <body>
   <header>
     <div class="logo">RU Finder</div>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Lost Items</a>
-      <a href="#">Found Items</a>
-      <a href="#">Post</a>
+      <a href="#home">Home</a>
+      <a href="#post">Post</a>
+      <a href="#lost">Lost Items</a>
+      <a href="#found">Found Items</a>
     </nav>
   </header>
 
+  <!-- Home Anchor -->
+  <div id="home"></div>
+
   <main>
-    <section class="post-form">
+    <section class="home-section">
+      <div class="home-content">
+        <h1>Welcome to RU Finder</h1>
+        <p>Your lost and found platform specifically for Rutgers Camden Students.</p>
+      </div>
+    </section>
+
+    <section class="post-form" id="post">
       <h2>Post a Lost or Found Item</h2>
       <form>
-        <select>
-          <option>Lost</option>
-          <option>Found</option>
+        <select name="status" required>
+          <option value="Lost">Lost</option>
+          <option value="Found">Found</option>
         </select>
-        <input type="text" placeholder="Item title" required>
+
+        <input type="text" placeholder="Item title" required />
+
         <textarea placeholder="Describe the item..." required></textarea>
-        <input type="text" placeholder="Location" required>
-        <input type="email" placeholder="Your contact email" required>
+
+        <select name="location" required>
+          <option value="" disabled selected>Select Location</option>
+          <option value="Campus Center">Campus Center</option>
+          <option value="Dining Hall">Dining Hall</option>
+          <option value="Armitage">Armitage</option>
+          <option value="BSB">BSB</option>
+          <option value="Nursing Building">Nursing Building</option>
+          <option value="Fine Arts">Fine Arts</option>
+          <option value="Parking Lot">Parking Lot</option>
+          <option value="Library">Library</option>
+          <option value="Dorms">Dorms</option>
+          <option value="Law Building">Law Building</option>
+        </select>
+
+        <textarea name="describe-location" placeholder="Describe the location..." rows="2" style="resize:none;"></textarea>
+
+        <input type="email" placeholder="Your contact email" required />
         <button type="submit">Post</button>
       </form>
     </section>
 
-    <section class="feed">
-      <h2>Recent Posts</h2>
+    <section class="feed" id="lost">
+      <h2>Lost Items</h2>
       <div class="card-grid">
         <div class="card">
-          <img src="https://via.placeholder.com/300x200" alt="Lost item">
+          <img src="https://via.placeholder.com/300x200" alt="Lost item" />
           <div class="card-content">
             <h3>Lost Wallet</h3>
             <p>Black leather wallet lost near library. Contains ID and student card.</p>
@@ -46,9 +75,15 @@
             <p class="contact">Contact: user@email.com</p>
           </div>
         </div>
+        <!-- More lost items can be added here -->
+      </div>
+    </section>
 
+    <section class="feed" id="found">
+      <h2>Found Items</h2>
+      <div class="card-grid">
         <div class="card">
-          <img src="https://via.placeholder.com/300x200" alt="Found item">
+          <img src="https://via.placeholder.com/300x200" alt="Found item" />
           <div class="card-content">
             <h3>Found Keys</h3>
             <p>Found near cafeteria on Monday morning.</p>
@@ -56,6 +91,7 @@
             <p class="contact">Contact: finder@email.com</p>
           </div>
         </div>
+        <!-- More found items can be added here -->
       </div>
     </section>
   </main>
@@ -63,5 +99,7 @@
   <footer>
     <p>© 2025 RU Finder. All rights reserved.</p>
   </footer>
+
+  <script src="script.js"></script>
 </body>
-</html
+</html>

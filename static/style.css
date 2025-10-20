@@ -12,6 +12,10 @@ body {
   line-height: 1.6;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Header */
 header {
   background: #df2302;
@@ -28,6 +32,8 @@ header {
 header .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  border-bottom: 2px solid white;
+  padding-bottom: 0.2rem;
 }
 
 header nav a {
@@ -35,10 +41,13 @@ header nav a {
   margin-left: 1rem;
   text-decoration: none;
   transition: color 0.3s;
+  border-bottom: 2px solid white;
+  padding-bottom: 0.2rem;
 }
 
 header nav a:hover {
   color: #ffcc00;
+  border-bottom-color: #ffcc00;
 }
 
 /* Main Layout */
@@ -48,18 +57,82 @@ main {
   padding: 0 1rem;
 }
 
+/* Elegant Home Section */
+.home-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 4rem 1rem;
+  background: linear-gradient(135deg, #df2302 0%, #b0301a 100%);
+  color: #fff9f7;
+  box-shadow: 0 6px 20px rgba(223, 35, 2, 0.35);
+  position: relative;
+  overflow: hidden;
+  font-style: normal;
+  border-radius: 0; /* removed rounding */
+}
+
+.home-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  animation: fadeInDown 1s ease forwards;
+  opacity: 0;
+  font-family: 'Georgia', serif;
+}
+
+.home-content p {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #ffeae6;
+  animation: fadeInUp 1s ease 0.5s forwards;
+  opacity: 0;
+  font-family: 'Georgia', serif;
+}
+
+/* Subtle fade-in animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Post Form */
 .post-form {
   background: white;
   padding: 1.5rem;
-  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  border-radius: 0; /* removed rounding */
 }
 
 .post-form h2 {
   margin-bottom: 1rem;
   color: #df2302;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
 }
 
 .post-form form {
@@ -73,7 +146,7 @@ main {
 .post-form select {
   padding: 0.7rem;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 0; /* removed rounding */
   font-size: 1rem;
 }
 
@@ -82,21 +155,31 @@ main {
   color: white;
   border: none;
   padding: 0.8rem;
-  border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s;
+  border-radius: 0; /* removed rounding */
 }
 
 .post-form button:hover {
-  background: #df2302;
+  background: #b31a01;
 }
 
-/* Feed */
+/* Feed Section Headers */
 .feed h2 {
-  margin-bottom: 1rem;
   color: #df2302;
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 3px solid #df2302;
 }
 
+/* Feed Cards */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -105,10 +188,10 @@ main {
 
 .card {
   background: white;
-  border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 0; /* removed rounding */
 }
 
 .card:hover {
@@ -133,10 +216,10 @@ main {
 .tag {
   display: inline-block;
   padding: 0.2rem 0.6rem;
-  border-radius: 4px;
   font-size: 0.9rem;
   font-weight: bold;
   margin-top: 0.4rem;
+  border-radius: 0; /* removed rounding */
 }
 
 .tag.lost {
@@ -162,7 +245,6 @@ footer {
   background: #df2302;
   color: white;
   margin-top: 3rem;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px; 
+  border-top-left-radius: 0; /* removed rounding */
+  border-top-right-radius: 0; /* removed rounding */
 }
-
