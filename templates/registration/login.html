@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block logo %}
+    <!-- This will REPLACE the default logo in the header -->
+    <a href="{% url 'home' %}">
+        <img src="{% static 'images/login logo.png' %}" alt="RU Finder Login Logo" class="header-logo">
+    </a>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <h1 class="brand">RU Finder</h1>
+  
+  <h2 class="login-title">Who <span class="highlight">R U?</span></h2>
+
+  <!-- ... rest of your login form ... -->
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enter</button>
+  </form>
+
+  <p class="signup-text">
+    New here? <a href="{% url 'users-register' %}">Join RU Finder</a>
+  </p>
+</div>
+{% endblock %}
