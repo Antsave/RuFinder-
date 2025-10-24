@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  main { max-width: 400px; margin: 4rem auto; padding: 0 1rem; }
+  .login-subtitle { font-size: 1.5rem; font-weight: 600; text-align: center; margin-bottom: 1.5rem; color: #333; }
+  .login-subtitle .highlight { color: #df2302; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; margin-bottom: 0.25rem; font-weight: 600; color: #555; }
+  .form-group input { width: 100%; padding: 0.7rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+  .signup-text { text-align: center; margin-top: 1.5rem; }
+  .signup-text a { color: #df2302; text-decoration: none; font-weight: 600; }
+  .signup-text a:hover { text-decoration: underline; }
+</style>
+
+<div class="post-form">
+  <h2>RU Finder</h2>
+  <h3 class="login-subtitle">Who <span class="highlight">R U?</span></h3>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.username.id_for_label }}">Username:</label>
+      {{ form.username }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.password.id_for_label }}">Password:</label>
+      {{ form.password }}
+    </div>
+    {% if form.errors %}
+      <div style="color: red; margin-bottom: 1rem;">
+        <p>Your username and password didn't match. Please try again.</p>
+      </div>
+    {% endif %}
+    <button type="submit">Enter</button>
+  </form>
+  <p class="signup-text">
+   New here? <a href="{% url 'users-register' %}">Join RU Finder</a>
+</p>
+</div>
+{% endblock %}

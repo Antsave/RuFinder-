@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  main { max-width: 400px; margin: 4rem auto; padding: 0 1rem; }
+  .profile-info { text-align: left; margin-top: 1rem; }
+  .profile-info p { font-size: 1rem; line-height: 1.6; margin-bottom: 0.5rem; }
+  .logout-button { background: #df2302; color: white; border: none; padding: 0.8rem; border-radius: 6px; cursor: pointer; transition: background 0.3s; width: 100%; margin-top: 2rem; font-size: 1rem; }
+  .logout-button:hover { background: #b31a01; }
+</style>
+
+<div class="post-form">
+  <h2 style="text-align: left; margin-bottom: 1.5rem;">Profile</h2>
+  <div class="profile-info">
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-button">Log Out</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
