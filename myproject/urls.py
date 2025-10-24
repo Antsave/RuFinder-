@@ -15,23 +15,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.http import HttpResponse
 from django.urls import path, include
 from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-
-def home(_request):
-    return HttpResponse("RUFinder is live ✅")
+from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("", home, name="home"),      # <- root path
-    path("admin/", admin.site.urls),  
-    path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon.html"),
+    # Web Pages
+    path("", TemplateView.as_view(template_name="index.html"), name="home"),
+    path("login/", views.login_view, name="login"),
+    path("profile/", views.profile_view, name="profile"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon"),
+
+    # Admin Site
+    path("admin/", admin.site.urls),
+
+    # API Endpoints
     path('api/', include('posts.urls')),
     path("api/users/", include("users.urls")),
     path("api/auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    
 ]
 

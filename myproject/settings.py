@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     
     #local apps
     'users',
@@ -66,10 +67,12 @@ CORS_ALLOW_ALL_ORIGINS = True #[
 
 ROOT_URLCONF = 'myproject.urls'
 
+# RuFinder-/myproject/settings.py
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'], # This line tells Django to look in the 'templates' folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,6 +134,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Add this list to tell Django where to find project-level static files
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -147,4 +155,15 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+
+# Where to redirect users after logging in
 }
+
+# Add this line here, for example:
+LOGIN_REDIRECT_URL = '/profile/'
+
+# Tells Django where to find the login page when @login_required is used
+LOGIN_URL = '/login/'
+
+# Where to redirect users after logging OUT
+LOGOUT_REDIRECT_URL = '/'
