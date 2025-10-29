@@ -22,22 +22,24 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView # Make sure this is imported
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from users.views import profile_view 
 # Remove the simple 'home' function as it's no longer needed
 # def home(_request):
 #     return HttpResponse("RUFinder is live ✅")
 
 urlpatterns = [
     # Change this line to directly render index.html
-    path("", TemplateView.as_view(template_name="index.html"), name="home"),
     path("admin/", admin.site.urls),
-    path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon.html"),
+
+    #API Routes
     path('api/', include('posts.urls')),
     path("api/users/", include("users.urls")),
+
+    #Auth routes
     path("api/auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # Add the path for the new profile view
-    path("profile/", profile_view, name="profile"), # Connects /profile/ to your view
+
+    # DJANGO Built-In auth
     # Add this line back in for login, logout, etc.
     path("accounts/", include("django.contrib.auth.urls")),
 

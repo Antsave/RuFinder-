@@ -18,12 +18,3 @@ class MeView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
-    
-# Add this new view for the profile page
-@login_required # Protect the view
-def profile_view(request):
-    # The request.user object is automatically available in templates
-    # when the user is logged in, thanks to Django's auth middleware.
-    # No need to explicitly pass it in the context here unless you
-    # want to add extra profile-specific data later.
-    return render(request, 'profile.html')
