@@ -1,15 +1,57 @@
-### GET request to example server
-GET http://127.0.0.1:8000/api/posts/
+@base = https://rufinder.savagedomain.net
+@api = {{base}}/api
+
+### List posts (public)
+GET {{api}}/posts/
 Accept: application/json
 
-### Create a new post
-POST http://127.0.0.1:8000/api/posts/
+
+### Register (run once; change username/email if they already exist)
+POST {{api}}/users/register/
 Content-Type: application/json
+Accept: application/json
 
 {
-  "title": "Lost Keys",
-  "description": "Silver keychain with a blue tag.",
+  "username": "testuser889",
+  "email": "testuser@gmail.com",
+  "password": "testpassword123",
+  "first_name": "Test",
+  "last_name": "User",
+  "display_name": "Test Userz"
+}
+
+
+### Login
+# @name login
+POST {{api}}/users/token/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "testuser889",
+  "password": "testpassword123"
+}
+
+### Create post (uses access from the previous response)
+POST {{api}}/posts/
+Authorization: Bearer {{login.response.body.$.access}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Lost Wallet",
+  "description": "Brown Leather Wallet",
   "category": "L",
-  "location": "Main Library",
-  "owner": 1
+  "location": "Campus Center"
+}
+
+### Add comment (uses the same access)
+POST {{api}}/comments/
+Authorization: Bearer {{login.response.body.$.access}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "post": 1,
+  "body": "This is a test comment!"
 }

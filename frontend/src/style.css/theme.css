@@ -1,0 +1,32 @@
+:root {
+  --rutgers-red: #CC0033;
+  --rutgers-dark: #660000;
+  --text-color: #333;
+  --bg-color: #f8f8f8;
+  --card-bg: #fff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--rutgers-red);
+  text-decoration: none;
+}
+
+button {
+  background-color: var(--rutgers-red);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--rutgers-dark);
+}
