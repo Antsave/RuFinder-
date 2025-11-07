@@ -53,16 +53,57 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input name="username" placeholder="Username" value={form.username} onChange={handleChange} />
-      <input name="email" placeholder="Email" type="email" value={form.email} onChange={handleChange} />
-      <input name="password" placeholder="Password" type="password" value={form.password} onChange={handleChange} />
-      <input name="first_name" placeholder="First Name" value={form.first_name} onChange={handleChange} />
-      <input name="last_name" placeholder="Last Name" value={form.last_name} onChange={handleChange} />
-      <input name="display_name" placeholder="Display Name" value={form.display_name} onChange={handleChange} />
-      <button type="submit">Register</button>
-      <p>{message}</p>
+    <form onSubmit={handleSubmit} className="space-y-4 text-left">
+      <h2 className="text-2xl font-semibold text-black mb-4 text-center">
+        Register
+      </h2>
+
+      {[
+        { name: "username", type: "text", placeholder: "Username" },
+        { name: "email", type: "email", placeholder: "Email" },
+        { name: "password", type: "password", placeholder: "Password" },
+        { name: "first_name", type: "text", placeholder: "First Name" },
+        { name: "last_name", type: "text", placeholder: "Last Name" },
+        { name: "display_name", type: "text", placeholder: "Display Name" },
+      ].map(({ name, type, placeholder }) => (
+        <div key={name}>
+          <label
+            htmlFor={name}
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            {placeholder}:
+          </label>
+          <input
+            id={name}
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            value={(form as any)[name]}
+            onChange={handleChange}
+            className="w-full border-2 border-gray-300 rounded-md p-2 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+            required
+          />
+        </div>
+      ))}
+
+      <button
+        type="submit"
+        className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-md transition-colors"
+      >
+        Register
+      </button>
+
+      {message && (
+        <p
+          className={`mt-2 text-center text-sm ${
+            message.includes("success")
+              ? "text-green-600"
+              : "text-red-600"
+          }`}
+        >
+          {message}
+        </p>
+      )}
     </form>
   );
 }

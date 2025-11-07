@@ -1,52 +1,34 @@
-// frontend/app/register/page.tsx
 "use client";
 
-import React from "react";
 import RegisterForm from "../components/registerform";
+import Link from "next/link";
 
 export default function RegisterPage() {
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <header style={styles.header}>
-          <h1 style={styles.title}>Create your account</h1>
-          <p style={styles.subtitle}>
-            Join RUFinder to report, recover, and reunite items.
-          </p>
-        </header>
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] bg-gray-50">
+      {/* Centered Card */}
+      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center border border-gray-100">
+        <h1 className="text-3xl font-bold text-red-600 mb-2">
+          RU Finder
+        </h1>
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">
+          Create Your Account
+        </h2>
 
+        {/* Register Form */}
         <RegisterForm />
 
-        <footer style={styles.footer}>
-          <span>Already have an account? </span>
-          <a href="/login" style={styles.link}>Log in</a>
-        </footer>
+        {/* Footer link */}
+        <p className="mt-6 text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-red-600 font-semibold hover:underline"
+          >
+            Log in
+          </Link>
+        </p>
       </div>
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  page: {
-    minHeight: "100dvh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background:
-      "linear-gradient(180deg, rgba(245,247,250,1) 0%, rgba(236,239,244,1) 100%)",
-    padding: 24,
-  },
-  card: {
-    width: "100%",
-    maxWidth: 460,
-    background: "#cc0e15",
-    borderRadius: 16,
-    boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 12px 24px rgba(0,0,0,0.06)",
-    padding: 24,
-  },
-  header: { textAlign: "center", marginBottom: 16 },
-  title: { margin: 0, fontSize: 24, fontWeight: 700 },
-  subtitle: { margin: "8px 0 0", color: "#000000", fontSize: 14 },
-  footer: { marginTop: 16, textAlign: "center", fontSize: 14, color: "#000000" },
-  link: { color: "#111827", fontWeight: 600, textDecoration: "underline" },
-};

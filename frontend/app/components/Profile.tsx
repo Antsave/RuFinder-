@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-//Typescript interface
+// Typescript interface
 interface User {
   id: number;
   username: string;
@@ -28,16 +28,21 @@ export default function Profile() {
     fetchProfile();
   }, []);
 
-  if (!user) return <p>Loading profile...</p>;
+  if (!user) return <p className="text-center text-gray-500">Loading profile...</p>;
 
   return (
-    <div>
-      <h2>Profile</h2>
-      <p>Username: {user.username}</p>
-      <p>Email: {user.email}</p>
-      <p>First Name: {user.first_name}</p>
-      <p>Last Name: {user.last_name}</p>
-      <p>Display Name: {user.display_name}</p>
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-left">
+        Profile Information
+      </h2>
+
+      <div className="space-y-3 text-left">
+        <p><span className="font-medium text-gray-700">Username:</span> {user.username}</p>
+        <p><span className="font-medium text-gray-700">Email:</span> {user.email}</p>
+        <p><span className="font-medium text-gray-700">First Name:</span> {user.first_name}</p>
+        <p><span className="font-medium text-gray-700">Last Name:</span> {user.last_name}</p>
+        <p><span className="font-medium text-gray-700">Display Name:</span> {user.display_name}</p>
+      </div>
     </div>
   );
 }
