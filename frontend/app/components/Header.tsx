@@ -1,16 +1,23 @@
-// This directive MUST be at the very top of the file
 "use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
+import useAuth from "../../hooks/useAuth"; // adjust path if needed
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setIsAuthenticated(false);
+    window.location.href = "/login"; // redirect to login page
+  };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="container mx-auto flex justify-between items-center px-4 py-3">
-        {/* Logo or Title */}
+        {/* Logo / Title */}
         <div className="flex items-center space-x-2">
           <img
             src="/main%20logo.png"
@@ -29,10 +36,26 @@ export default function Header() {
         </button>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex space-x-6 text-gray-700">
+        <nav className="hidden md:flex space-x-6 text-gray-700 items-center">
           <Link href="/">Home</Link>
-          <Link href="/login">Login</Link>
-          <Link href="/register">Register</Link>
+
+          {isAuthenticated ? (
+            <>
+              <Link href="/post">Create Post</Link>
+              <Link href="/profile">Profile</Link>
+              <button
+                onClick={handleLogout}
+                className="text-red-600 font-medium hover:underline"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login">Login</Link>
+              <Link href="/register">Register</Link>
+            </>
+          )}
         </nav>
       </div>
 
@@ -42,12 +65,35 @@ export default function Header() {
           <Link href="/" onClick={() => setMenuOpen(false)}>
             Home
           </Link>
-          <Link href="/login" onClick={() => setMenuOpen(false)}>
-            Login
-          </Link>
-          <Link href="/register" onClick={() => setMenuOpen(false)}>
-            Register
-          </Link>
+
+          {isAuthenticated ? (
+            <>
+              <Link href="/post" onClick={() => setMenuOpen(false)}>
+                Create Post
+              </Link>
+              <Link href="/profile" onClick={() => setMenuOpen(false)}>
+                Profile
+              </Link>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setMenuOpen(false);
+                }}
+                className="text-left text-red-600 font-medium"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" onClick={() => setMenuOpen(false)}>
+                Login
+              </Link>
+              <Link href="/register" onClick={() => setMenuOpen(false)}>
+                Register
+              </Link>
+            </>
+          )}
         </nav>
       )}
     </header>
