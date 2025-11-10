@@ -1,13 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState( () => {
-      const token = localStorage.getItem('accessToken');
-      return !!token;
-  });
-
-
-  return { isAuthenticated, setIsAuthenticated };
+interface AuthHook {
+  isAuthenticated: boolean;
+  login: (token: string) => void;
+  logout: () => void;
 }
+
+export default function useAuth(): AuthHook {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  // Load token from localStorage on mount
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setIsAuthenticated(!!token);
+  }, []);
+
+  // Functions to log in/out
+  const login = (token: string) => {
+    localStorage.setItem("accessToken", token);
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setIsAuthenticated(false);
+  };
+
+  return { isAuthenticated, login, logout };
+}
+
