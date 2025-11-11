@@ -1,47 +1,33 @@
-"""
-URL configuration for myproject project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-# RuFinder-/myproject/urls.py
-# RuFinder-/myproject/urls.py
-
 from django.contrib import admin
-# Remove the unused HttpResponse import
 from django.urls import path, include
-from django.views.generic import TemplateView # Make sure this is imported
+from django.views.generic import TemplateView # For the homepage
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-# Remove the simple 'home' function as it's no longer needed
-# def home(_request):
-#     return HttpResponse("RUFinder is live ✅")
+
+# Import the views.py file from the same directory
+from . import views 
+
+# Import Django's built-in authentication views (for LogoutView)
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # Change this line to directly render index.html
-    path("admin/", admin.site.urls),
+    # --- Your Web Page URLs ---
+    path("", TemplateView.as_view(template_name="index.html"), name="home"),
+    path("login/", views.login_view, name="login"),
+    path("profile/", views.profile_view, name="profile"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 
-    #API Routes
+    # --- Your Other URLs ---
+    path("admin/", admin.site.urls),
+    
+    # This path was in your 'kpatel0717' branch, assuming you still need it
+    path("comingsoon/", TemplateView.as_view(template_name="comingsoon.html"), name="comingsoon"),
+    
+    # --- Your API URLs ---
     path('api/', include('posts.urls')),
     path("api/users/", include("users.urls")),
-
-    #Auth routes
     path("api/auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    # Add the path for the new profile view
 
-    # DJANGO Built-In auth
-    # Add this line back in for login, logout, etc.
-    path("accounts/", include("django.contrib.auth.urls")),
-
+    # This was in your 'kpatel0717' branch, but our new login view replaces it
+    # path("accounts/", include("django.contrib.auth.urls")), 
 ]
-

@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-import os
+
 from pathlib import Path
+import os # Make sure os is imported
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,13 +48,12 @@ INSTALLED_APPS = [
 
     #third-party apps
     'rest_framework',
-    'corsheaders',
 ]
 AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,23 +62,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True #[
-    #'https://rufinder.savagedomain.net',
-#]
-CSRF_TRUSTED_ORIGINS = [
-    "https://rufinder.savagedomain.net",
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
 ]
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'myproject.urls'
-
-# RuFinder-/myproject/settings.py
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'], # This line tells Django to look in the 'templates' folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,9 +131,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-# Add this list to tell Django where to find project-level static files
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -157,9 +153,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-
-# Where to redirect users after logging in
 }
 
-# Add this line here, for example:
-LOGIN_REDIRECT_URL = '/profile/'
+# Where to redirect users after logging OUT
+LOGOUT_REDIRECT_URL = '/'
+
+# Tells Django where to find the login page
+LOGIN_URL = '/login/'
