@@ -1,17 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import useAuth from "../../hooks/useAuth"; // adjust path if needed
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Load auth state from localStorage on mount
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) setIsAuthenticated(true);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setIsAuthenticated(false);
-    window.location.href = "/login"; // redirect to login page
+    window.location.href = "/login";
   };
 
   return (
