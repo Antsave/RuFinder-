@@ -25,6 +25,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 # Remove the simple 'home' function as it's no longer needed
 # def home(_request):
 #     return HttpResponse("RUFinder is live ✅")
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Change this line to directly render index.html
@@ -45,3 +47,5 @@ urlpatterns = [
 
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

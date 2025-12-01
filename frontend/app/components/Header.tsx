@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import useAuth from "../../hooks/useAuth"; // adjust path if needed
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    setIsAuthenticated(false);
-    window.location.href = "/login"; // redirect to login page
+    logout();
+    setMenuOpen(false);
+    // Use router.push for smooth navigation without full page reload
+    router.push("/login");
   };
 
   return (
@@ -31,29 +34,40 @@ export default function Header() {
         <button
           className="md:hidden text-red-600 focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
         >
           <span className="text-3xl">☰</span>
         </button>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-6 text-gray-700 items-center">
-          <Link href="/">Home</Link>
+          <Link href="/" className="hover:text-red-600 transition-colors">
+            Home
+          </Link>
 
           {isAuthenticated ? (
             <>
-              <Link href="/post">Create Post</Link>
-              <Link href="/profile">Profile</Link>
+              <Link href="/post" className="hover:text-red-600 transition-colors">
+                Create Post
+              </Link>
+              <Link href="/profile" className="hover:text-red-600 transition-colors">
+                Profile
+              </Link>
               <button
                 onClick={handleLogout}
-                className="text-red-600 font-medium hover:underline"
+                className="text-red-600 font-medium hover:text-red-700 transition-colors"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link href="/login">Login</Link>
-              <Link href="/register">Register</Link>
+              <Link href="/login" className="hover:text-red-600 transition-colors">
+                Login
+              </Link>
+              <Link href="/register" className="hover:text-red-600 transition-colors">
+                Register
+              </Link>
             </>
           )}
         </nav>
@@ -62,34 +76,51 @@ export default function Header() {
       {/* Mobile Menu */}
       {menuOpen && (
         <nav className="md:hidden bg-white border-t border-gray-200 flex flex-col px-4 pb-4 space-y-2 text-gray-700">
-          <Link href="/" onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            className="py-2 hover:text-red-600 transition-colors"
+          >
             Home
           </Link>
 
           {isAuthenticated ? (
             <>
-              <Link href="/post" onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/post"
+                onClick={() => setMenuOpen(false)}
+                className="py-2 hover:text-red-600 transition-colors"
+              >
                 Create Post
               </Link>
-              <Link href="/profile" onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/profile"
+                onClick={() => setMenuOpen(false)}
+                className="py-2 hover:text-red-600 transition-colors"
+              >
                 Profile
               </Link>
               <button
-                onClick={() => {
-                  handleLogout();
-                  setMenuOpen(false);
-                }}
-                className="text-left text-red-600 font-medium"
+                onClick={handleLogout}
+                className="text-left py-2 text-red-600 font-medium hover:text-red-700 transition-colors"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/login"
+                onClick={() => setMenuOpen(false)}
+                className="py-2 hover:text-red-600 transition-colors"
+              >
                 Login
               </Link>
-              <Link href="/register" onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/register"
+                onClick={() => setMenuOpen(false)}
+                className="py-2 hover:text-red-600 transition-colors"
+              >
                 Register
               </Link>
             </>

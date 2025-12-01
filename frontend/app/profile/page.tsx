@@ -14,15 +14,6 @@ export default function ProfilePage() {
         {/* Reusable form component */}
         <Profile />
 
-        <p className="mt-6 text-sm text-gray-600">
-          Done?{" "}
-          <a
-            href="/login"
-            className="text-red-600 font-semibold hover:underline"
-          >
-            Logout
-          </a>
-        </p>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import {authFetch} from "@/utils/authFetch";
 
 // Typescript interface
 interface User {
@@ -18,8 +19,7 @@ export default function Profile() {
     const fetchProfile = async () => {
       const token = localStorage.getItem("accessToken");
       if (!token) return;
-      const res = await fetch(`http://127.0.0.1:8000/api/users/me/`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const res = await authFetch(`http://127.0.0.1:8000/api/users/me/`, {
       });
       if (!res.ok) return;
       const data: User = await res.json();
