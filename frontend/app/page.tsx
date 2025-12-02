@@ -1,10 +1,12 @@
+// app/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { authFetch } from "@/utils/authFetch";
 import CommentForm from "./components/commentform";
 import CommentsList from "./components/commentslist";
 
-// TypeScript interfaces
 interface Post {
   id: number;
   title: string;
@@ -32,20 +34,17 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+  const router = useRouter();
   const postsPerPage = 5;
 
-  // Fetch current user info
+  // Fetch current user
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const token = localStorage.getItem("accessToken");
       if (!token) return;
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/users/me/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await authFetch("http://127.0.0.1:8000/api/users/me/");
         if (res.ok) {
           const userData = await res.json();
           setCurrentUserId(userData.id);
@@ -69,7 +68,7 @@ export default function Home() {
       const sortedPosts = postsData.sort(
         (a: Post, b: Post) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
-
+      
       setPosts(sortedPosts);
       setComments(commentsData);
     } catch (err) {
@@ -83,7 +82,7 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // Refresh comments when a new comment is added or deleted
+  // Refresh comments
   const refreshComments = async () => {
     try {
       const commentsData = await fetch(`http://127.0.0.1:8000/api/comments/`).then(res => res.json());
@@ -93,9 +92,53 @@ export default function Home() {
     }
   };
 
+  // 🆕 DELETE POST FUNCTION
+  const handleDeletePost = async (postId: number, postTitle: string) => {
+    if (!confirm(`Are you sure you want to delete "${postTitle}"?\n\nThis will also delete all comments on this post.`)) {
+      return;
+    }
+
+    try {
+      const res = await authFetch(`http://127.0.0.1:8000/api/posts/${postId}/`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => null);
+        console.error('Delete failed:', {
+          status: res.status,
+          errorData: errorData
+        });
+        
+        if (res.status === 403) {
+          throw new Error("You don't have permission to delete this post");
+        } else if (res.status === 404) {
+          throw new Error("Post not found");
+        } else if (res.status === 401) {
+          throw new Error("You must be logged in to delete posts");
+        } else {
+          throw new Error(errorData?.detail || `Failed to delete post (${res.status})`);
+        }
+      }
+
+      // Success! Refresh the posts list
+      await fetchData();
+      
+      // If we deleted a post on the current page and it was the last one,
+      // go back a page
+      if (posts.length === 1 && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      alert(error instanceof Error ? error.message : "Failed to delete post");
+    }
+  };
+
   if (loading) return <p className="text-center mt-8">Loading...</p>;
 
-  // Pagination logic
+  // Pagination
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -118,10 +161,26 @@ export default function Home() {
       <ul className="space-y-6">
         {currentPosts.map(post => {
           const postComments = comments.filter(c => c.post === post.id);
+          const isOwner = currentUserId && currentUserId === post.owner;
 
           return (
             <li key={post.id} className="border p-4 rounded shadow bg-white">
-              <h2 className="text-xl font-semibold mb-2 text-red-600">{post.title}</h2>
+              {/* Post Header with Delete Button */}
+              <div className="flex justify-between items-start mb-2">
+                <h2 className="text-xl font-semibold text-red-600 flex-1">{post.title}</h2>
+                
+                {/* 🆕 DELETE BUTTON - Only show for post owner */}
+                {isOwner && (
+                  <button
+                    onClick={() => handleDeletePost(post.id, post.title)}
+                    className="text-red-600 hover:text-red-800 text-sm font-medium ml-2 px-3 py-1 border border-red-600 rounded hover:bg-red-50 transition-colors"
+                    title="Delete post"
+                  >
+                    Delete Post
+                  </button>
+                )}
+              </div>
+
               <p className="mb-2 text-gray-800">{post.description}</p>
               <p className="text-sm text-gray-500 mb-1">
                 Category: {post.category === "L" ? "Lost" : "Found"} | Location: {post.location}
@@ -131,7 +190,7 @@ export default function Home() {
                 {new Date(post.created_at).toLocaleString()}
               </p>
 
-              {/* Image display */}
+              {/* Image */}
               {post.image && (
                 <div className="mt-3 mb-3">
                   <img
@@ -152,16 +211,14 @@ export default function Home() {
                   Comments ({postComments.length})
                 </h3>
 
-                {/* Comments List */}
-                <CommentsList
+                <CommentsList 
                   comments={postComments}
                   currentUserId={currentUserId ?? undefined}
                   onCommentDeleted={refreshComments}
                 />
 
-                {/* Comment Form */}
-                <CommentForm
-                  postId={post.id}
+                <CommentForm 
+                  postId={post.id} 
                   onCommentAdded={refreshComments}
                 />
               </div>
@@ -170,7 +227,7 @@ export default function Home() {
         })}
       </ul>
 
-      {/* Pagination controls */}
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center mt-8 space-x-4">
           <button
