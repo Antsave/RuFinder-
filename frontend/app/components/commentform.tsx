@@ -34,7 +34,7 @@ export default function CommentForm({ postId, onCommentAdded }: CommentFormProps
     try {
       const res = await authFetch(`http://127.0.0.1:8000/api/comments/`, {
         method: "POST",
-
+        headers: { "Content-Type": "application/json"},
         body: JSON.stringify({ post: postId, body: body.trim() }),
       });
 
