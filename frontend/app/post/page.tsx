@@ -3,17 +3,29 @@ import CreatePost from "../components/createpost";
 export default function CreatePostPage() {
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">Create a Post</h1>
 
-        <div className="space-y-4">
-          {/* The CreatePost component will render here */}
-          <CreatePost />
+      {/* Page Container */}
+      <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-8">
+
+        {/* Title */}
+        <div className="text-center mb-6">
+          <h1 className="text-3xl font-semibold text-red-600">
+            Create a Post
+          </h1>
+          <p className="text-black-500 mt-1">
+            Share what you lost or found
+          </p>
         </div>
+
+        {/* Form */}
+        <CreatePost />
+
       </div>
     </div>
   );
 }
+
+
 
 // Alternative: Add custom styling to the form inputs
 // You can add these styles to make the form look better:

@@ -13,26 +13,27 @@ export default function Header() {
   const handleLogout = () => {
     logout();
     setMenuOpen(false);
-    // Use router.push for smooth navigation without full page reload
     router.push("/login");
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
-      <div className="container mx-auto flex justify-between items-center px-4 py-3">
-        {/* Logo / Title */}
-        <div className="flex items-center space-x-2">
+    <header className="bg-gradient-to-r from-red-600 to-red-700 shadow-lg backdrop-blur-sm z-50 sticky top-0">
+      <div className="container mx-auto flex justify-between items-center px-6 py-4">
+        {/* Logo */}
+        <div className="flex items-center space-x-3">
           <img
             src="/main%20logo.png"
             alt="RU Finder Logo"
             className="h-8 w-auto"
           />
-          <h1 className="text-xl font-bold text-red-600">RU Finder</h1>
+          <h1 className="text-xl font-bold text-white tracking-wide">
+            RU Finder
+          </h1>
         </div>
 
         {/* Hamburger Icon */}
         <button
-          className="md:hidden text-red-600 focus:outline-none"
+          className="md:hidden text-white focus:outline-none hover:text-gray-200 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -40,32 +41,47 @@ export default function Header() {
         </button>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex space-x-6 text-gray-700 items-center">
-          <Link href="/" className="hover:text-red-600 transition-colors">
+        <nav className="hidden md:flex space-x-6 items-center">
+          <Link
+            href="/"
+            className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
+          >
             Home
           </Link>
 
           {isAuthenticated ? (
             <>
-              <Link href="/post" className="hover:text-red-600 transition-colors">
+              <Link
+                href="/post"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
+              >
                 Create Post
               </Link>
-              <Link href="/profile" className="hover:text-red-600 transition-colors">
+              <Link
+                href="/profile"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
+              >
                 Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-red-600 font-medium hover:text-red-700 transition-colors"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className="hover:text-red-600 transition-colors">
+              <Link
+                href="/login"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
+              >
                 Login
               </Link>
-              <Link href="/register" className="hover:text-red-600 transition-colors">
+              <Link
+                href="/register"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
+              >
                 Register
               </Link>
             </>
@@ -74,12 +90,16 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <nav className="md:hidden bg-white border-t border-gray-200 flex flex-col px-4 pb-4 space-y-2 text-gray-700">
+      <nav
+        className={`md:hidden bg-gradient-to-r from-red-600 to-red-700 border-t border-red-800 transition-max-height duration-500 overflow-hidden ${
+          menuOpen ? "max-h-96" : "max-h-0"
+        }`}
+      >
+        <div className="flex flex-col px-6 py-4 space-y-3">
           <Link
             href="/"
             onClick={() => setMenuOpen(false)}
-            className="py-2 hover:text-red-600 transition-colors"
+            className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
           >
             Home
           </Link>
@@ -89,20 +109,20 @@ export default function Header() {
               <Link
                 href="/post"
                 onClick={() => setMenuOpen(false)}
-                className="py-2 hover:text-red-600 transition-colors"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
               >
                 Create Post
               </Link>
               <Link
                 href="/profile"
                 onClick={() => setMenuOpen(false)}
-                className="py-2 hover:text-red-600 transition-colors"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
               >
                 Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-left py-2 text-red-600 font-medium hover:text-red-700 transition-colors"
+                className="text-left text-white font-medium hover:text-gray-200 transition-colors duration-300"
               >
                 Logout
               </button>
@@ -112,21 +132,21 @@ export default function Header() {
               <Link
                 href="/login"
                 onClick={() => setMenuOpen(false)}
-                className="py-2 hover:text-red-600 transition-colors"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
               >
                 Login
               </Link>
               <Link
                 href="/register"
                 onClick={() => setMenuOpen(false)}
-                className="py-2 hover:text-red-600 transition-colors"
+                className="text-white font-medium hover:text-gray-200 transition-colors duration-300"
               >
                 Register
               </Link>
             </>
           )}
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 }
